@@ -12,14 +12,14 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#0f0b08">
 
-<!-- Ícone na tela inicial (180px). Troque o arquivo se quiser um brasão -->
+<!-- Ícone na tela inicial (180px) -->
 <link rel="apple-touch-icon" href="icon.png">
 
 <style>
   html,body{margin:0;height:100%;background:#0f0b08;overflow:hidden}
   body{display:flex;align-items:center;justify-content:center;
        font-family:-apple-system,Georgia,serif;color:#c89a4a;text-align:center}
-  .wrap{padding:24px}
+  .wrap{padding:24px;max-width:340px}
   .title{font-size:30px;letter-spacing:3px;text-transform:uppercase;
           color:#c89a4a;text-shadow:0 0 18px rgba(200,154,74,.35)}
   .sub{margin-top:10px;font-size:14px;color:#8a7858;font-style:italic}
@@ -27,21 +27,51 @@
         border:2px solid rgba(200,154,74,.25);border-top-color:#c89a4a;
         animation:spin 1s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
-  a{color:#c89a4a}
+  .btn{display:inline-block;margin-top:26px;padding:13px 26px;border-radius:10px;
+       background:linear-gradient(#2a2218,#1f1812);border:1px solid #8a6a2a;
+       color:#e8d8b4;font-size:16px;letter-spacing:1px;text-decoration:none;
+       box-shadow:0 0 16px rgba(200,154,74,.18)}
+  .hint{margin-top:22px;font-size:12.5px;line-height:1.5;color:#8a7858}
+  .hint b{color:#c89a4a}
+  .hide{display:none}
 </style>
 </head>
 <body>
   <div class="wrap">
     <div class="title">Pentonwar</div>
-    <div class="sub">Abrindo a Cidade da Virtude…</div>
-    <div class="ring"></div>
-    <noscript><p><a id="lnk">Tocar para abrir</a></p></noscript>
+
+    <!-- Mostrado quando aberto como APP (da tela inicial): splash + auto-redirect -->
+    <div id="appView" class="hide">
+      <div class="sub">Abrindo a Cidade da Virtude…</div>
+      <div class="ring"></div>
+    </div>
+
+    <!-- Mostrado quando aberto como ABA NORMAL (configurando): botão + instrução -->
+    <div id="setupView" class="hide">
+      <div class="sub">Cidade da Virtude</div>
+      <a class="btn" id="openBtn" href="#">Abrir o projeto ▸</a>
+      <div class="hint">
+        Para criar o app: toque em <b>Compartilhar</b> →
+        <b>Adicionar à Tela de Início</b>.<br>
+        Depois é só abrir pelo ícone — vai direto ao projeto.
+      </div>
+    </div>
   </div>
 
 <script>
   var DEST = "https://vscode.dev/tunnel/pentonwar-pc/C:/Users/Mike/Documents/Phantonwar/Cidade-da-Virtude?vscode-lang=pt-br";
-  // pequeno atraso só pra mostrar a splash; replace evita poluir o histórico
-  setTimeout(function(){ location.replace(DEST); }, 600);
+
+  // standalone = aberto pelo ícone da tela inicial (iOS usa navigator.standalone)
+  var isApp = (window.navigator.standalone === true) ||
+              (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
+
+  if (isApp) {
+    document.getElementById('appView').classList.remove('hide');
+    setTimeout(function(){ location.replace(DEST); }, 500);
+  } else {
+    document.getElementById('setupView').classList.remove('hide');
+    document.getElementById('openBtn').setAttribute('href', DEST);
+  }
 </script>
 </body>
 </html>
