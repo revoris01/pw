@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Pentonwar</title>
+
+<!-- Faz o web clip abrir em tela cheia (cara de app) -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Pentonwar">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0f0b08">
+
+<!-- Ícone na tela inicial (180px). Troque o arquivo se quiser um brasão -->
+<link rel="apple-touch-icon" href="icon.png">
+
+<style>
+  html,body{margin:0;height:100%;background:#0f0b08;overflow:hidden}
+  body{display:flex;align-items:center;justify-content:center;
+       font-family:-apple-system,Georgia,serif;color:#c89a4a;text-align:center}
+  .wrap{padding:24px}
+  .title{font-size:30px;letter-spacing:3px;text-transform:uppercase;
+          color:#c89a4a;text-shadow:0 0 18px rgba(200,154,74,.35)}
+  .sub{margin-top:10px;font-size:14px;color:#8a7858;font-style:italic}
+  .ring{margin:26px auto 0;width:34px;height:34px;border-radius:50%;
+        border:2px solid rgba(200,154,74,.25);border-top-color:#c89a4a;
+        animation:spin 1s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  a{color:#c89a4a}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="title">Pentonwar</div>
+    <div class="sub">Abrindo a Cidade da Virtude…</div>
+    <div class="ring"></div>
+    <noscript><p><a id="lnk">Tocar para abrir</a></p></noscript>
+  </div>
+
+<script>
+  var DEST = "https://vscode.dev/tunnel/pentonwar-pc/C:/Users/Mike/Documents/Phantonwar/Cidade-da-Virtude?vscode-lang=pt-br";
+  // pequeno atraso só pra mostrar a splash; replace evita poluir o histórico
+  setTimeout(function(){ location.replace(DEST); }, 600);
+</script>
+</body>
+</html>
